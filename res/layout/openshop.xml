@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7" >
+
+    <Button
+        android:id="@+id/CreateShop"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:layout_x="103dp"
+        android:layout_y="439dp"
+        android:background="@drawable/signin_b"
+        android:text="create new shop"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:id="@+id/shopname"
+        android:layout_width="267dp"
+        android:layout_height="35dp"
+        android:layout_x="51dp"
+        android:layout_y="150dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="shop name"
+        android:paddingLeft="10dp" />
+
+    <EditText
+        android:id="@+id/DescEdit"
+        android:layout_width="267dp"
+        android:layout_height="73dp"
+        android:layout_x="51dp"
+        android:layout_y="326dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="Desc"
+        android:paddingLeft="10dp" />
+
+    <Spinner
+        android:id="@+id/CatagorySpin"
+        android:layout_width="162dp"
+        android:layout_height="wrap_content"
+        android:layout_x="88dp"
+        android:layout_y="239dp"
+        android:drawSelectorOnTop="true"
+        android:entries="@array/CategoryItems"
+        android:prompt="@string/Catagroy_Prompt" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="50dp"
+        android:layout_y="211dp"
+        android:text="@string/Catagroy_Prompt" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_x="126dp"
+        android:layout_y="23dp"
+        android:clickable="true"
+        android:src="@drawable/default_shoppic" />
+
+</AbsoluteLayout>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <com.parse.ParseImageView
+        android:id="@+id/imageView3"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_x="16dp"
+        android:layout_y="54dp"
+        android:src="@drawable/inspiration_6" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="55dp"
+        android:layout_x="12dp"
+        android:layout_y="54dp"
+        android:src="@drawable/post_st2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="69dp"
+        android:layout_y="64dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="73dp"
+        android:layout_y="86dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="10sp" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_x="23dp"
+        android:layout_y="26dp"
+        android:src="@drawable/time" />
+
+    <TextView
+        android:id="@+id/releaseYear"
+        android:layout_width="55dp"
+        android:layout_height="30dp"
+        android:layout_x="66dp"
+        android:layout_y="22dp"
+        android:textColor="#34BcA5"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_x="228dp"
+        android:layout_y="26dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_x="9dp"
+        android:layout_y="346dp"
+        android:gravity="center_vertical"
+        android:text="TextView" />
+
+    <com.parse.ParseImageView
+        android:id="@+id/icon"
+        android:layout_width="267dp"
+        android:layout_height="136dp"
+        android:layout_x="9dp"
+        android:layout_y="222dp" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="288dp"
+        android:layout_y="309dp"
+        android:src="@drawable/delete" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="284dp"
+        android:layout_y="262dp"
+        android:src="@drawable/repost" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="216dp"
+        android:layout_height="41dp"
+        android:layout_x="191dp"
+        android:layout_y="221dp"
+        android:src="@drawable/replay" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="20dp"
+        android:layout_y="166dp"
+        android:text="TextView" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="27dp"
+        android:layout_height="24dp"
+        android:layout_x="282dp"
+        android:layout_y="165dp"
+        android:background="@drawable/follow" />
+
+</AbsoluteLayout>

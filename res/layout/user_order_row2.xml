@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7"  >
+
+    <TextView
+        android:id="@+id/ordered_prd_quantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="3dp"
+        android:layout_toRightOf="@+id/ordered_prd_img"
+        android:layout_x="98dp"
+        android:layout_y="4dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/ordered_prd_color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ordered_prd_quantity"
+        android:layout_below="@+id/ordered_prd_quantity"
+        android:layout_marginTop="13dp"
+        android:layout_x="98dp"
+        android:layout_y="30dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/ordered_prd_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/ordered_prd_img"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="8dp"
+        android:layout_x="8dp"
+        android:layout_y="79dp"
+        android:text="TextView" />
+
+    <com.parse.ParseImageView
+        android:id="@+id/ordered_prd_img"
+        android:layout_width="72dp"
+        android:layout_height="71dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="6dp"
+        android:layout_marginTop="3dp"
+        android:layout_x="4dp"
+        android:layout_y="2dp"
+        android:src="@drawable/ic_launcher" />
+    <Button
+        android:id="@+id/ordered_product_edit"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/signup_se"
+        android:layout_alignTop="@+id/ordered_prd_quantity"
+        android:text="Edit" />
+
+    <Button
+        android:id="@+id/ordered_product_remove"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="85dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ordered_product_edit"
+        android:layout_below="@+id/ordered_product_edit"
+        android:background="@drawable/signin_se"
+        android:text="Remove" />
+
+    <!-- ImageView
+        android:id="@+id/order_prd_color"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/ordered_prd_color"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:src="@drawable/empty" /-->
+
+    <ImageView
+        android:id="@+id/order_prd_color"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/ordered_prd_color"
+        android:layout_centerHorizontal="true"
+        android:padding="10dp"
+        android:src="@drawable/empty" />
+
+    <TextView
+        android:id="@+id/ordered_prd_cost4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ordered_prd_name"
+        android:layout_alignRight="@+id/ordered_prd_color"
+        android:text="TextView" />
+
+</RelativeLayout>

@@ -1,0 +1,77 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7"
+    tools:context="com.mzam.starter.EditShopInfo" >
+
+    <RelativeLayout
+        android:id="@+id/as"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+        >
+
+   		 <com.parse.ParseImageView
+   		     android:id="@+id/shopEditImage"
+   		     android:layout_width="65dp"
+   		     android:layout_height="61dp"
+   		     android:layout_alignParentTop="true"
+   		     android:layout_centerHorizontal="true"
+   		     android:layout_marginTop="37dp"
+   		     android:src="@drawable/tab_shop" />
+
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/shopCatagory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="33dp"
+        android:layout_y="195dp"
+        android:text="Catagory:" />
+
+    <EditText
+        android:id="@+id/nameShopEdit"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_x="47dp"
+        android:layout_y="137dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:focusable="true"
+        android:hint="Name"
+        android:paddingLeft="10dp" />
+
+    <Spinner
+        android:id="@+id/CatagorySpin"
+        android:layout_width="293dp"
+        android:layout_height="wrap_content"
+        android:layout_x="37dp"
+        android:layout_y="228dp"
+        android:drawSelectorOnTop="true"
+        android:entries="@array/CategoryItems"
+        android:prompt="@string/Catagroy_Prompt" />
+
+    <EditText
+        android:id="@+id/DescEditShop"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_x="47dp"
+        android:layout_y="313dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="Description"
+        android:paddingLeft="10dp" />
+
+    <Button
+        android:id="@+id/UpdateButton"
+        android:layout_width="188dp"
+        android:layout_height="wrap_content"
+        android:layout_x="84dp"
+        android:layout_y="411dp"
+        android:background="@drawable/signup_b"
+        android:text="Update Information"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+</AbsoluteLayout>

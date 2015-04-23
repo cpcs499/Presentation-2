@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7"
+    android:clickable="true" >
+
+    <com.parse.ParseImageView
+        android:id="@+id/imageView1"
+        android:layout_width="85dp"
+        android:layout_height="85dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:clickable="true"
+        android:src="@drawable/userpic" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/editText1"
+        android:layout_below="@+id/editText1"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="  username"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="270dp"
+        android:layout_height="65dp"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="  Description"
+        android:inputType="textMultiLine"
+        android:maxLength="150"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/textPost"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/signin_b"
+        android:text="Update"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:id="@+id/editText4"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/editText3"
+        android:layout_below="@+id/editText3"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="  Email"
+        android:inputType="textEmailAddress"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/editText6"
+        android:layout_below="@+id/imageView1"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="  First Last name"
+        android:inputType="textPersonName"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/editText5"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_alignLeft="@+id/editText4"
+        android:layout_below="@+id/editText4"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="  phone number"
+        android:inputType="phone"
+        android:maxLength="14"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/editText6"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/editText5"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="birth date"
+        android:inputType="date"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+</RelativeLayout>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7" >
+
+    <ListView
+        android:id="@+id/productcomment_list_view"
+        android:layout_width="352dp"
+        android:layout_height="452dp"
+        android:layout_x="3dp"
+        android:layout_y="0dp"
+        android:background="#fbfcf7" >
+    </ListView>
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="139dp"
+        android:layout_height="wrap_content"
+        android:layout_x="213dp"
+        android:layout_y="457dp"
+        android:background="@drawable/signin_b"
+        android:text="Add Comment"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+
+</AbsoluteLayout>

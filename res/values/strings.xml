@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <string name="hello">Hello World, ParseStarterProjectActivity!</string>
+    <string name="app_name">SwiftShop</string>
+    <string-array android:layout_width="wrap_content" android:id="@+id/stringarray1" android:layout_height="wrap_content" name="CategoryItems">
+        <item android:id="@+id/item1" android:layout_width="wrap_content" android:layout_height="wrap_content">Food</item>
+        <item>Accessories</item>
+        <item>Home Supply</item>
+        <item>Babies Stuff</item>
+    </string-array>
+    
+    <color name="selected">#f5f1de</color>
+   	<color name="unselected">#ffffff</color>
+   	
+   	<string name="Catagroy_Prompt">choose a catagory</string> 
+  <string name="colorPrompt">choose a color</string> 
+   	
+  
+  <string-array android:id="@+id/colorList" name="colorList" android:layout_width="wrap_content" android:layout_height="wrap_content">
+  <item android:id="@+id/item2" android:layout_width="wrap_content" android:layout_height="wrap_content">Food</item> 
+  <item>red</item> 
+  <item>blue</item> 
+  <item>green</item> 
+  <item>yellow</item> 
+  <item>black</item> 
+  <item>white</item> 
+  </string-array>
+  <string name="title_activity_new_shop">NewShop</string> 
+  <string name="hello_world">Hello world!</string> 
+  <string name="action_settings">Settings</string> 
+  <string name="title_activity_new__shop">New_Shop</string> 
+  <string name="title_activity_shop_list">Shop_list</string> 
+  <string name="title_activity_shop__list">Shop_List</string> 
+  <string name="title_activity_add_product">AddProduct</string> 
+  <string name="Upload">Upload</string> 
+  <string name="title_activity_camera_live">CameraLive</string> 
+  <string name="title_activity_edit_shop">EditShop</string> 
+  <string name="title_activity_main">MainActivity</string> 
+  <string name="title_activity_product_page">ProductPage</string> 
+   	
+</resources>

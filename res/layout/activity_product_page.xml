@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.parse.ParseImageView
+        android:id="@+id/phone"
+        android:layout_width="244dp"
+        android:layout_height="249dp"
+        android:layout_x="28dp"
+        android:layout_y="14dp" />
+
+    <TextView
+        android:id="@+id/edit"
+        android:layout_width="26dp"
+        android:layout_height="28dp"
+        android:layout_x="323dp"
+        android:layout_y="9dp"
+        android:background="@drawable/edit_b" />
+
+    <TextView
+        android:id="@+id/delete"
+        android:layout_width="26dp"
+        android:layout_height="wrap_content"
+        android:layout_x="323dp"
+        android:layout_y="38dp"
+        android:background="@drawable/delete_b" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="27dp"
+        android:layout_height="30dp"
+        android:layout_x="323dp"
+        android:layout_y="83dp"
+        android:background="@drawable/comment_b"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_x="323dp"
+        android:layout_y="124dp"
+        android:background="@drawable/rate1_b" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="308dp"
+        android:layout_y="130dp"
+        android:text="t"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button3"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_x="323dp"
+        android:layout_y="155dp"
+        android:background="@drawable/rate2_b" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="309dp"
+        android:layout_y="160dp"
+        android:text="t"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/button2"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_x="323dp"
+        android:layout_y="186dp"
+        android:background="@drawable/rate3_b" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="309dp"
+        android:layout_y="189dp"
+        android:text="t"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="27dp"
+        android:layout_height="33dp"
+        android:layout_x="323dp"
+        android:layout_y="221dp"
+        android:background="@drawable/allshoporder_b"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="50dp"
+        android:layout_y="389dp" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/color1"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/empty" />
+
+            <ImageView
+                android:id="@+id/color2"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/empty" />
+
+            <ImageView
+                android:id="@+id/color3"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/empty" />
+
+            <ImageView
+                android:id="@+id/color4"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/empty" />
+
+            <ImageView
+                android:id="@+id/color5"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:src="@drawable/empty" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_x="54dp"
+        android:layout_y="446dp" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/qnt1"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true" />
+
+            <TextView
+                android:id="@+id/qnt2"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true" />
+
+            <TextView
+                android:id="@+id/qnt3"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true" />
+
+            <TextView
+                android:id="@+id/qnt4"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true" />
+
+            <TextView
+                android:id="@+id/qnt5"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:scrollHorizontally="true" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/NameSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="157dp"
+        android:layout_y="279dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/NameProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="26dp"
+        android:layout_y="278dp"
+        android:text="Name of Product:" />
+
+    <TextView
+        android:id="@+id/DescProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="26dp"
+        android:layout_y="300dp"
+        android:text="Description: " />
+
+    <TextView
+        android:id="@+id/DescSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="115dp"
+        android:layout_y="300dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="27dp"
+        android:layout_y="325dp"
+        android:text="Price:" />
+
+    <TextView
+        android:id="@+id/PriceSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="69dp"
+        android:layout_y="325dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/QuantSet"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="202dp"
+        android:layout_y="488dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="102dp"
+        android:layout_y="487dp"
+        android:text="Total Quantity:" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="25dp"
+        android:layout_y="370dp"
+        android:text="Colors Availables:" />
+
+    <TextView
+        android:id="@+id/order_the_product"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="212dp"
+        android:layout_y="326dp"
+        android:text="order the product" />
+
+</AbsoluteLayout>

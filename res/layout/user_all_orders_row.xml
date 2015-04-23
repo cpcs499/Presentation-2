@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7"  >
+
+    <com.parse.ParseImageView
+        android:id="@+id/order_shop_img_row"
+        android:layout_width="72dp"
+        android:layout_height="71dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/shop" />
+
+    <TextView
+        android:id="@+id/user_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_toRightOf="@+id/order_shop_img_row"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/user_order_no_of_prd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_order_status"
+        android:layout_below="@+id/user_order_status"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/user_order_total_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_order_no_of_prd"
+        android:layout_below="@+id/user_order_no_of_prd"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/user_order_shop_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/user_order_total_cost"
+        android:layout_below="@+id/order_shop_img_row"
+        android:text="TextView" />
+
+</RelativeLayout>

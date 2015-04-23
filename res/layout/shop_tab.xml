@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fbfcf7" >
+
+    <ListView
+        android:id="@+id/listView1"
+        android:layout_width="match_parent"
+        android:layout_height="343dp"
+        android:layout_x="0dp"
+        android:layout_y="46dp"
+        android:background="#fbfcf7"
+        android:textSize="8sp" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="29dp"
+        android:layout_height="35dp"
+        android:layout_x="321dp"
+        android:layout_y="4dp"
+        android:background="@drawable/allshoporder"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/textPost"
+        android:layout_width="122dp"
+        android:layout_height="wrap_content"
+        android:layout_x="118dp"
+        android:layout_y="416dp"
+        android:background="@drawable/signup_b"
+        android:text="Create Shop"
+        android:textColor="#ffffff" />
+
+</AbsoluteLayout>

@@ -1,0 +1,124 @@
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#fbfcf7" >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="-4dp"
+        android:layout_y="196dp" >
+    </RelativeLayout>
+
+    <com.parse.ParseImageView
+        android:id="@+id/imageView1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_x="24dp"
+        android:layout_y="17dp"
+        android:src="@drawable/inspiration_6" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_x="18dp"
+        android:layout_y="12dp"
+        android:src="@drawable/post_st2" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="88dp"
+        android:layout_y="18dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/desc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="89dp"
+        android:layout_y="40dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#cccccc" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="25dp"
+        android:layout_y="131dp"
+        android:text="p" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="20dp"
+        android:layout_height="25dp"
+        android:layout_x="330dp"
+        android:layout_y="12dp"
+        android:background="@drawable/allshoporder_b"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="20dp"
+        android:layout_height="27dp"
+        android:layout_x="330dp"
+        android:layout_y="60dp"
+        android:background="@drawable/delete_b"
+        android:src="@drawable/delete" />
+
+    <TextView
+        android:id="@+id/edit"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_x="330dp"
+        android:layout_y="42dp"
+        android:background="@drawable/edit_b"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="270dp"
+        android:layout_y="131dp"
+        android:text="Followers" />
+
+    <GridView
+        android:id="@+id/gridProd"
+        android:layout_width="match_parent"
+        android:layout_height="305dp"
+        android:layout_x="-1dp"
+        android:layout_y="167dp"
+        android:columnWidth="90dp"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:verticalSpacing="10dp" >
+    </GridView>
+
+    <ImageView
+        android:id="@+id/AddProduct"
+        android:layout_width="36dp"
+        android:layout_height="34dp"
+        android:layout_x="166dp"
+        android:layout_y="124dp"
+        android:src="@drawable/add_icon" />
+
+    <Button
+        android:id="@+id/query"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="83dp"
+        android:layout_height="wrap_content"
+        android:layout_x="225dp"
+        android:layout_y="10dp"
+        android:background="@drawable/signup"
+        android:text="query shop"
+        android:textColor="#ffffff" />
+
+</AbsoluteLayout>

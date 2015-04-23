@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#fbfcf7"
+    android:clickable="true" >
+
+    <com.parse.ParseImageView
+        android:id="@+id/imageView1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_x="10dp"
+        android:layout_y="8dp"
+        android:src="@drawable/userpic" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="78dp"
+        android:layout_y="24dp"
+        android:text="TextView"
+        android:textColor="#34BcA5" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="82dp"
+        android:layout_y="45dp"
+        android:text="TextView"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="294dp"
+        android:layout_height="160dp"
+        android:layout_x="7dp"
+        android:layout_y="280dp"
+        android:background="@drawable/app_background"
+        android:ems="10"
+        android:gravity="center_vertical|top"
+        android:inputType="textMultiLine"
+        android:maxLength="200" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editText3"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="16dp"
+        android:layout_x="16dp"
+        android:layout_y="219dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:gravity="center_vertical"
+        android:hint="event date-mm/dd/yyyy"
+        android:maxLength="12"
+        android:paddingLeft="10dp"
+        android:textSize="13sp"
+        android:textStyle="italic" />
+
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="270dp"
+        android:layout_height="35dp"
+        android:layout_x="16dp"
+        android:layout_y="178dp"
+        android:background="@drawable/signupfield"
+        android:ems="10"
+        android:hint="event name"
+        android:paddingLeft="10dp"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:layout_x="111dp"
+        android:layout_y="92dp"
+        android:background="@drawable/photopost_upload" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="252dp"
+        android:layout_y="124dp" />
+
+</AbsoluteLayout>

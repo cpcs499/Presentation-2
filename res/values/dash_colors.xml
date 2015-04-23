@@ -1,0 +1,67 @@
+<resources>
+
+
+    <string-array name="default_color_choice_values" translatable="false">
+
+
+  <!--  Row # purble and Pink  --> 
+        <item>#660066</item>
+        <item>#990099</item>
+        <item>#FF33FF</item> 
+         <item>#FF66FF</item>
+        <item>#FF99FF</item>
+
+
+
+   <!--  Row # RED  --> 
+        <item>#FF9999</item>
+        <item>#FF6666</item>
+        <item>#FF3333</item> 
+         <item>#FF0000</item>
+        <item>#CC0000</item>
+       
+
+
+   <!--  Row # YELLOW  --> 
+        <item>#FF6600</item>
+        <item>#FF9900</item>
+        <item>#FFCC00</item> 
+        <item>#FFFF00</item>
+        <item>#FFFF99</item>
+   
+         
+    <!--  Row # Green  --> 
+         <item>#99FF99</item>
+         <item>#339933</item>
+         <item>#339900</item> 
+         <item>#006600</item>
+         <item>#003300</item>
+
+       <!--  Row # Blue  --> 
+ 
+         <item>#000066</item>
+         <item>#0000CC</item>
+         <item>#3366CC</item> 
+         <item>#3399cc</item>
+         <item>#33b5e5</item> 
+          
+       <!--  Row # Black & White -->
+         
+             <item>#ffffff</item>
+             <item>#eeeeee</item>
+             <item>#cccccc</item>
+             <item>#888888</item>
+             <item>#000000</item>
+         
+        
+    
+         
+    </string-array>
+
+    <string-array name="homescreen_color_choice_values" translatable="false">
+        <item>#ffffff</item>
+        <item>#000000</item>
+    </string-array>
+
+  
+</resources>

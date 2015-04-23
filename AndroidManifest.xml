@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mzam.starter"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="22"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <supports-screens android:smallScreens="true" 
+      android:normalScreens="true" 
+      android:largeScreens="true"
+      android:xlargeScreens="true"
+      android:anyDensity="true" />
+    
+    <application
+        android:name=".ParseApplication"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:allowBackup="true"
+        android:theme="@android:style/Theme.Holo.Light" >
+        <activity
+            android:name=".ParseStarterProjectActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name=".SignUp"
+            android:label="@string/app_name" >
+        </activity>
+          <activity
+            android:name=".OrderProduct"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name=".Timeline"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Tabs_TimelinePostsShopsProfile"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".UserProfile_ME"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name=".Posts"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".ShopsAm"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".newShop"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".Acc_Setting"
+            android:label="@string/app_name" >
+        </activity>
+        
+        <activity
+            android:name=".EditProfile"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".inProgressOneShopComingOrder"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".inProgressShopsComingOrders"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".AllShopOrderTabsFragment"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".tryshoporder"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".OneShopOrderTabsFragment"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".PostCustomAdapter"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name=".ViewProductOrders"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".User_Order"
+            android:label="@string/app_name" >
+        </activity>
+        <activity 
+            android:name=".EditShopInfo"
+            android:label="@string/title_activity_edit_shop" />
+        <activity 
+            android:name=".PayedOneShopComingOrder"
+            android:label="@string/title_activity_edit_shop" /> 
+  
+        <activity 
+            android:name=".searchtry"
+            android:label="Se" /> 
+        
+        <activity 
+            android:name=".ProfileOtherUser"
+             />
+        <activity 
+            android:name=".FollowRequest"
+             />
+        <activity 
+            android:name=".SinglePostView"
+             />
+        <activity 
+            android:name=".AddPostComment"
+             />
+        <activity 
+            android:name=".AddProductComment"
+             />
+        <activity 
+            android:name=".ProductComments"
+             />
+        
+        
+        
+        
+        
+        <activity 
+            android:name=".ShopSingleItemView" /> 
+  <activity android:name=".AddProduct" android:label="@string/title_activity_add_product" /> 
+  <activity android:name=".EditProduct" android:label="EditProduct" /> 
+  <activity android:name=".MainActivity" android:label="@string/title_activity_main" /> 
+  <activity android:name=".ProductPage" android:label="@string/title_activity_product_page" /> 
+  <activity android:name=".CustomOnItemSelectedListener" android:label="@string/title_activity_product_page" /> 
+        
+  
+        
+        
+        
+        
+ 
+    </application>
+
+</manifest>

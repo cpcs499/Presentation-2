@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blurback" >
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textPost"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="27dp"
+        android:clickable="true"
+        android:linksClickable="true"
+        android:text="Forget SwiftShop Account Password ?" />
+
+    <EditText
+        android:id="@+id/postcontent"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/posttitle"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="216dp"
+        android:background="@drawable/username"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Username"
+        android:textColor="#ffffff"
+        android:textColorHint="#d8d2d2"
+        android:textSize="16sp" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/posttitle"
+        android:layout_width="290dp"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/postcontent"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="68dp"
+        android:background="@drawable/password"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#d8d2d2"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/button2"
+        style="@style/AppBaseTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/posttitle"
+        android:layout_below="@+id/posttitle"
+        android:layout_marginLeft="43dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/signin_b"
+        android:text="SIGN IN"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/textPost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_marginLeft="7dp"
+        android:layout_toRightOf="@+id/button2"
+        android:background="@drawable/signup_b"
+        android:text="SIGN UP"
+        android:textColor="#ffffff"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+</RelativeLayout>
