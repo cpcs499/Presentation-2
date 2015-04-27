@@ -337,184 +337,7 @@ public class ProductPage extends Activity {
 						startActivity(n);
 						
 					}});
-						
-				Button wow = (Button)findViewById(R.id.button1);
-				Button wtf = (Button)findViewById(R.id.button2);
-				Button good = (Button)findViewById(R.id.button3);
-				
-				final TextView wowcount = (TextView)findViewById(R.id.textView7);
-				final TextView goodcount = (TextView)findViewById(R.id.textView6);
-				final TextView wtfcount = (TextView)findViewById(R.id.TextView01);
-				
-				final ParseQuery<ParseObject> ratec = ParseQuery.getQuery("Product_User_Rate");
-				ratec.whereEqualTo("product_id", prodId);
-				try{
-				ratec.whereEqualTo("rate_type", "1");
-				wowcount.setText(ratec.count()+"");
-				ratec.whereEqualTo("rate_type", "2");
-				goodcount.setText(ratec.count()+"");
-				ratec.whereEqualTo("rate_type", "3");
-				wtfcount.setText(ratec.count()+"");
-				}catch(ParseException e){
-					e.printStackTrace();
-				}
-				
-				wow.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product_User_Rate");
-						query2.whereEqualTo("user_id", ParseUser.getCurrentUser());
-						query2.whereEqualTo("product_id", prodId);
-						query2.whereNotEqualTo("rate_type", "1");
-						query2.getFirstInBackground(new GetCallback<ParseObject>(){
-							@Override
-							public void done(ParseObject object, ParseException e) {
-								ParseObject productRate = new ParseObject("Product_User_Rate");
-								
-								if(object==null){
-									// TODO Auto-generated method stub
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "1");
-									productRate.saveInBackground();
-									try
-									{
-										wowcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "2");
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "3");
-										wtfcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}
-								else{
-									
-									object.deleteEventually();
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "1");
-									productRate.saveInBackground();
-									try
-									{
-										wowcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "2");
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "3");
-										wtfcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}
-							}
-						});
-					}
 					
-				});
-				
-				wtf.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product_User_Rate");
-						query2.whereEqualTo("user_id", ParseUser.getCurrentUser());
-						query2.whereEqualTo("product_id", prodId);
-						query2.whereNotEqualTo("rate_type", "3");
-						query2.getFirstInBackground(new GetCallback<ParseObject>(){
-							ParseObject productRate = new ParseObject("Product_User_Rate");
-							
-							@Override
-							public void done(ParseObject object, ParseException e) {
-								if((object==null)){
-									// TODO Auto-generated method stub
-									
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "3");
-									productRate.saveInBackground();
-									try
-									{
-										wtfcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "2");
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "1");
-										wowcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}else{
-									object.deleteEventually();
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "3");
-									productRate.saveInBackground();
-									try
-									{
-										wtfcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "2");
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "1");
-										wowcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}
-							}
-						});
-					}
-					
-				});
-				
-				good.setOnClickListener(new View.OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						final ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Product_User_Rate");
-						query2.whereEqualTo("user_id", ParseUser.getCurrentUser());
-						query2.whereEqualTo("product_id", prodId);
-						query2.whereNotEqualTo("rate_type", "2");
-						query2.getFirstInBackground(new GetCallback<ParseObject>(){
-							ParseObject productRate = new ParseObject("Product_User_Rate");
-							
-							@Override
-							public void done(ParseObject object, ParseException e) {
-								if((object==null)){
-									// TODO Auto-generated method stub
-									
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "2");
-									productRate.saveInBackground();
-									try
-									{
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "3");
-										wtfcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "1");
-										wowcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}else{
-									object.deleteEventually();
-									productRate.put("product_id", prodId);
-									productRate.put("user_id", ParseUser.getCurrentUser());
-									productRate.put("rate_type", "2");
-									productRate.saveInBackground();
-									try
-									{
-										goodcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "3");
-										wtfcount.setText(query2.count()+"");
-										query2.whereEqualTo("rate_type", "1");
-										wowcount.setText(query2.count()+"");
-									}catch(ParseException ee){
-											ee.printStackTrace();
-									}
-								}
-							}
-						});
-					}
-					
-				});
 				
 				ProductOrder.setOnClickListener(new View.OnClickListener() {
 					
@@ -550,7 +373,176 @@ public class ProductPage extends Activity {
         }
         return super.onOptionsItemSelected(item);
 	 }
+	
+	public void onResume(){
+		super.onResume();{
+			Button wow = (Button)findViewById(R.id.button1);
+			Button wtf = (Button)findViewById(R.id.button2);
+			Button good = (Button)findViewById(R.id.button3);
+			
+			final TextView wowcount = (TextView)findViewById(R.id.textView7);
+			final TextView goodcount = (TextView)findViewById(R.id.textView6);
+			final TextView wtfcount = (TextView)findViewById(R.id.TextView01);
+			
+			final ParseQuery<ParseObject> ratec = ParseQuery.getQuery("Product_User_Rate");
+			ratec.whereEqualTo("product_id", prodId);
+			try{
+			ratec.whereEqualTo("rate_type", "1");
+			wowcount.setText(ratec.count()+"");
+			ratec.whereEqualTo("rate_type", "2");
+			goodcount.setText(ratec.count()+"");
+			ratec.whereEqualTo("rate_type", "3");
+			wtfcount.setText(ratec.count()+"");
+			}catch(ParseException e){
+				e.printStackTrace();
+			}
+			
+			final ParseQuery<ParseObject> rate = ParseQuery.getQuery("Product_User_Rate");
+			rate.whereEqualTo("user_id", ParseUser.getCurrentUser());
+			rate.whereEqualTo("product_id", prodId);
+			final ParseObject productRate = new ParseObject("Product_User_Rate");
+			
+			wow.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					rate.getFirstInBackground(new GetCallback<ParseObject>(){
+						
+						
+						@Override
+						public void done(ParseObject object, ParseException e) {
+							// TODO Auto-generated method stub
+							if(object!=null && object.getString("rate_type").equals("1"))
+							{
+								Toast.makeText(getApplicationContext(), "you chhose it before", Toast.LENGTH_SHORT).show();
+							}
+							else if(object!=null&&(object.getString("rate_type").equals("2")||object.getString("rate_type").equals("3")))
+							{
+								productRate.put("rate_type", "1");
+								productRate.saveInBackground();
+								Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+							}
+							else if (object==null)
+							{
+								Toast.makeText(getApplicationContext(), "Not Exist", Toast.LENGTH_SHORT).show();
+								productRate.put("product_id", prodId);
+								productRate.put("user_id", ParseUser.getCurrentUser());
+								productRate.put("rate_type", "1");
+								productRate.saveInBackground();
+							}	
+							
+							try
+							{
+							rate.whereEqualTo("rate_type", "1");
+							wowcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "2");
+							goodcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "3");
+							wtfcount.setText(rate.count()+"");
+							}catch(ParseException ee){
+								ee.printStackTrace();
+							}
+						}
+						
+					});
 					
+				}
+				
+			});
+			
+			good.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					rate.getFirstInBackground(new GetCallback<ParseObject>(){
+						@Override
+						public void done(ParseObject object, ParseException e) {
+							// TODO Auto-generated method stub
+							if(object!=null && object.getString("rate_type").equals("2"))
+							{
+								Toast.makeText(getApplicationContext(), "you chhose it before", Toast.LENGTH_SHORT).show();
+							}
+							else if(object!=null&&(object.getString("rate_type").equals("1")||object.getString("rate_type").equals("3")))
+							{
+								productRate.put("rate_type", "2");
+								productRate.saveInBackground();
+								Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+							}
+							else if (object==null)
+							{
+								Toast.makeText(getApplicationContext(), "Not Exist", Toast.LENGTH_SHORT).show();
+								productRate.put("product_id", prodId);
+								productRate.put("user_id", ParseUser.getCurrentUser());
+								productRate.put("rate_type", "2");
+								productRate.saveInBackground();
+							}
+							try
+							{
+							rate.whereEqualTo("rate_type", "1");
+							wowcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "2");
+							goodcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "3");
+							wtfcount.setText(rate.count()+"");
+							}catch(ParseException ee){
+								ee.printStackTrace();
+							}
+							
+						}
+					});
+					
+				}
+			});
+			
+			wtf.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					rate.getFirstInBackground(new GetCallback<ParseObject>(){
+						@Override
+						public void done(ParseObject object, ParseException e) {
+							// TODO Auto-generated method stub
+							if(object!=null && object.getString("rate_type").equals("3"))
+							{
+								Toast.makeText(getApplicationContext(), "you chhose it before", Toast.LENGTH_SHORT).show();
+							}
+							else if(object!=null&&(object.getString("rate_type").equals("1")||object.getString("rate_type").equals("2")))
+							{
+								productRate.put("rate_type", "3");
+								productRate.saveInBackground();
+								
+								
+								Toast.makeText(getApplicationContext(), "Updated", Toast.LENGTH_SHORT).show();
+							
+							}
+							else if (object==null)
+							{
+								Toast.makeText(getApplicationContext(), "Not Exist", Toast.LENGTH_SHORT).show();
+								productRate.put("product_id", prodId);
+								productRate.put("user_id", ParseUser.getCurrentUser());
+								productRate.put("rate_type", "3");
+								productRate.saveInBackground();
+								
+							}
+							try
+							{
+							rate.whereEqualTo("rate_type", "1");
+							wowcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "2");
+							goodcount.setText(rate.count()+"");
+							rate.whereEqualTo("rate_type", "3");
+							wtfcount.setText(rate.count()+"");
+							}catch(ParseException ee){
+								ee.printStackTrace();
+							}
+						}
+					});
+					
+					
+				}
+			});
+		}
+	}				
 }
 		            					    
 		
