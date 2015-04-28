@@ -44,6 +44,19 @@ public class ProductComments extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6adbd9"))); // set your desired color
+		
+		final String value = getIntent().getExtras().getString("PRODUCT_ID");
+		Button add = (Button)findViewById(R.id.button1);
+		add.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				Intent in = new Intent(ProductComments.this,AddProductComment.class);
+				in.putExtra("PRODUCT_ID", value);
+				startActivity(in);
+			}
+		});
+		
 }
 	
 	public class CommentCustomAdapter extends ParseQueryAdapter<ParseObject> {
@@ -67,7 +80,7 @@ public class ProductComments extends Activity {
 		@Override
 		public View getItemView(final ParseObject object, View v, ViewGroup parent) {
 			if (v == null) {
-				v = View.inflate(getContext(), R.layout.list_row, null);
+				v = View.inflate(getContext(), R.layout.commentview, null);
 			}
 
 			super.getItemView(object, v, parent);
@@ -84,12 +97,7 @@ public class ProductComments extends Activity {
 	        Button rate = (Button) v.findViewById(R.id.button1);
 	        final Typeface font = Typeface.createFromAsset(getContext().getAssets(),"Fonts/Rosemary.ttf");
 	       
-	        iv.setVisibility(View.GONE);
-	        replayComment.setVisibility(View.GONE);
-	        repost.setVisibility(View.GONE);
-	        rate.setVisibility(View.GONE);
-	        delete.setY(-70);
-	        
+
 	        ParseQuery<ParseUser> queryuser = ParseQuery.getUserQuery();
 	        queryuser.getInBackground(object.getParseUser("user_id").getObjectId(), new GetCallback<ParseUser>(){
 
@@ -119,6 +127,7 @@ public class ProductComments extends Activity {
 	        });
 			
 	        tvTitle.setText(object.getString("comment_text")+"");
+	        
 	        Date datecreate = object.getCreatedAt();
 	        Date cur = Calendar.getInstance().getTime();
 	        long t = cur.getTime() - datecreate.getTime();
@@ -159,7 +168,7 @@ public class ProductComments extends Activity {
 			});
 	        
 	      v.setBackgroundColor(Color.parseColor("#fbfcf7"));
-
+	      
 			return v;
 		}
 
@@ -179,21 +188,12 @@ public class ProductComments extends Activity {
 	public void onResume(){
 		super.onResume();{
 			
-			final String value = getIntent().getExtras().getString("PRODUCT_ID");
+			
 			
 			ListView commentsadapter = (ListView) findViewById(R.id.productcomment_list_view);
 			commentsadapter.setAdapter(new CommentCustomAdapter(this));
 			
-			Button add = (Button)findViewById(R.id.button1);
-			add.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
-					Intent in = new Intent(ProductComments.this,AddProductComment.class);
-					in.putExtra("PRODUCT_ID", value);
-					startActivity(in);
-				}
-			});
+			
 		}
 	}
 		
