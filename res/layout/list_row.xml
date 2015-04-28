@@ -3,7 +3,7 @@
     android:id="@+id/AbsoluteLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f6f8fa"
+    android:background="#fbfcf7"
     android:clickable="true" >
 
     <com.parse.ParseImageView
@@ -29,16 +29,6 @@
         android:layout_x="300dp"
         android:layout_y="7dp"
         android:textColor="#34BcA5"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_x="133dp"
-        android:layout_y="14dp"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="10sp" />
 
     <TextView
@@ -81,13 +71,22 @@
         android:layout_height="23dp"
         android:layout_x="330dp"
         android:layout_y="88dp"
+        android:background="@drawable/delete_b"
         android:clickable="true"
         android:src="@drawable/delete" />
 
      <RelativeLayout
          android:id="@+id/RL"
-	     android:layout_width="match_parent"
-	     android:layout_height="match_parent">
+         android:layout_width="match_parent"
+         android:layout_height="135dp"
+         android:layout_y="34dp" >
+
+         <com.parse.ParseImageView
+             android:id="@+id/icon"
+             android:layout_width="100dp"
+             android:layout_height="100dp"
+             android:layout_below="@+id/textView1"
+             android:layout_centerHorizontal="true" />
 
          <TextView
              android:id="@+id/textView1"
@@ -95,23 +94,14 @@
              android:layout_height="wrap_content"
              android:layout_alignParentTop="true"
              android:layout_centerHorizontal="true"
-             android:layout_marginTop="58dp"
+             android:layout_marginTop="26dp"
              android:gravity="center"
              android:paddingBottom="10dp"
              android:paddingLeft="50dp"
              android:paddingRight="50dp"
              android:text="TextView" />
 
-         <com.parse.ParseImageView
-             android:id="@+id/icon"
-             android:layout_width="100dp"
-             android:layout_height="100dp"
-             android:layout_below="@+id/textView1"
-             android:layout_centerHorizontal="true"
-             android:layout_marginTop="15dp" />
-
      </RelativeLayout>
-     
     
 
     <Button
@@ -122,5 +112,17 @@
         android:layout_x="325dp"
         android:layout_y="117dp"
         android:background="@drawable/follow" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="13dp"
+        android:layout_x="145dp"
+        android:layout_y="15dp"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="10sp" />
         
 </AbsoluteLayout>
