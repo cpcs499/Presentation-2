@@ -15,7 +15,9 @@ import com.parse.ParseUser;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -30,6 +32,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ProductComments extends Activity {
 	Context context = this;
@@ -41,23 +44,6 @@ public class ProductComments extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#6adbd9"))); // set your desired color
-		
-		
-		final String value = getIntent().getExtras().getString("PRODUCT_ID");
-		
-		ListView commentsadapter = (ListView) findViewById(R.id.productcomment_list_view);
-		commentsadapter.setAdapter(new CommentCustomAdapter(this));
-		
-		Button add = (Button)findViewById(R.id.button1);
-		add.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Intent in = new Intent(ProductComments.this,AddProductComment.class);
-				in.putExtra("PRODUCT_ID", value);
-				startActivity(in);
-			}
-		});
 }
 	
 	public class CommentCustomAdapter extends ParseQueryAdapter<ParseObject> {
@@ -84,9 +70,7 @@ public class ProductComments extends Activity {
 				v = View.inflate(getContext(), R.layout.list_row, null);
 			}
 
-			
 			super.getItemView(object, v, parent);
-			
 			final ImageView replayComment = (ImageView) v.findViewById(R.id.imageView1);
 	        
 			final ImageView iv = (ImageView) v.findViewById(R.id.icon);
@@ -151,12 +135,31 @@ public class ProductComments extends Activity {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					object.deleteEventually();
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+					builder.setMessage("Are You Sure ?");
+					builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+					           public void onClick(DialogInterface dialog, int id) {
+					               // User clicked OK button
+					        	   object.deleteEventually();
+					        	   Toast.makeText(getApplicationContext(), "Post Deleted", Toast.LENGTH_SHORT).show();
+					        	   onResume();
+					           }
+					       });
+					builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					           public void onClick(DialogInterface dialog, int id) {
+					               // User cancelled the dialog
+					        	   dialog.dismiss();
+					           }
+					       });
+					AlertDialog alertDialog = builder.create();
+					alertDialog.show();
 							    	
 				}
 			});
 	        
 	      v.setBackgroundColor(Color.parseColor("#fbfcf7"));
+
 			return v;
 		}
 
@@ -172,4 +175,26 @@ public class ProductComments extends Activity {
         }
         return super.onOptionsItemSelected(item);
 	 }
+	
+	public void onResume(){
+		super.onResume();{
+			
+			final String value = getIntent().getExtras().getString("PRODUCT_ID");
+			
+			ListView commentsadapter = (ListView) findViewById(R.id.productcomment_list_view);
+			commentsadapter.setAdapter(new CommentCustomAdapter(this));
+			
+			Button add = (Button)findViewById(R.id.button1);
+			add.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					Intent in = new Intent(ProductComments.this,AddProductComment.class);
+					in.putExtra("PRODUCT_ID", value);
+					startActivity(in);
+				}
+			});
+		}
+	}
+		
 }
