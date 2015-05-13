@@ -98,7 +98,7 @@ public class ShopSingleItemView extends Activity {
 				
 				shopOrder.setOnClickListener(new OnClickListener(){
 			        public void onClick(View view) {
-		    		   final CharSequence[] items = {"inProgress Orders", "Complete Orders"};
+		    		   final CharSequence[] items = {"Current Shop Coming Orders", "Payed Shop Orders","Delivered Shop Coming Orders","Cancelled Shop Coming Orders"};
 
 		    	        AlertDialog.Builder builder = new AlertDialog.Builder(context);
 		    	        builder.setTitle("Make your selection");
@@ -106,13 +106,26 @@ public class ShopSingleItemView extends Activity {
 		    	            public void onClick(DialogInterface dialog, int item) {
 		    	                // Do something with the selection
 		    	                if(item == 0){
-		    	                	Intent intent= new Intent(ShopSingleItemView.this,inProgressOneShopComingOrder.class);
+		    	                	Intent intent= new Intent(ShopSingleItemView.this,CurrentOneShopComingOrder.class);
 		    			        	intent.putExtra("SHOP_ID", shopId);
 		    		    			//finish();
 		    		    		    startActivity(intent);
 		    	                }
 		    	                else if(item == 1){
 		    	                	Intent intent= new Intent(ShopSingleItemView.this,PayedOneShopComingOrder.class);
+		    			        	intent.putExtra("SHOP_ID", shopId);
+		    		    			//finish();
+		    		    		    startActivity(intent);
+		    	                }
+		    	                
+		    	                if(item == 2){
+		    	                	Intent intent= new Intent(ShopSingleItemView.this,DeliveredOneShopComingOrder.class);
+		    			        	intent.putExtra("SHOP_ID", shopId);
+		    		    			//finish();
+		    		    		    startActivity(intent);
+		    	                }
+		    	                else if(item == 3){
+		    	                	Intent intent= new Intent(ShopSingleItemView.this,CancelledOneShopComingOrder.class);
 		    			        	intent.putExtra("SHOP_ID", shopId);
 		    		    			//finish();
 		    		    		    startActivity(intent);
