@@ -71,11 +71,20 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".inProgressOneShopComingOrder"
+            android:name=".CurrentOneShopComingOrder"
+            android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".PayedOneShopComingOrder"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".inProgressShopsComingOrders"
+            android:name=".DeliveredOneShopComingOrder"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name=".CurrentShopsComingOrders"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -105,14 +114,15 @@
         <activity 
             android:name=".EditShopInfo"
             android:label="@string/title_activity_edit_shop" />
-        <activity 
-            android:name=".PayedOneShopComingOrder"
-            android:label="@string/title_activity_edit_shop" /> 
   
         <activity 
             android:name=".searchtry"
             android:label="Se" /> 
         
+        
+        <activity 
+            android:name=".CancelledOneShopComingOrder"
+             />
         <activity 
             android:name=".ProfileOtherUser"
              />
@@ -131,6 +141,11 @@
         <activity 
             android:name=".ProductComments"
              />
+        <activity 
+           android:name=".CancelledShopsComingOrders"/>
+        
+        <activity 
+           android:name=".DeliveredShopsComingOrders"/>
         
         
         
