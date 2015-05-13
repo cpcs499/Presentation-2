@@ -1,22 +1,30 @@
 package com.mzam.starter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
+import com.mzam.starter.CurrentShopsComingOrders.VersiAdapter;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -29,11 +37,12 @@ public class PayedShopOrders extends Fragment {
 	ListView listView ;
 	ImageView userpic;
 	Switch switchT1;
-	List<String> obList ,obList2,obList3,obList4,obList5;
+	List<String> obList ,obList2,obList3,obList4,obList5,obList6;
 	List<ParseObject> ob,os;
 	List<ParseUser> ou;
 	ParseUser fl = ParseUser.getCurrentUser();
 	ParseQueryAdapter<ParseObject> adapter ;
+	TextView profileusername;
     
 	
 	@Override
@@ -42,7 +51,7 @@ public class PayedShopOrders extends Fragment {
 		  listView = (ListView) myFragmentView.findViewById(R.id.listView1);
 		  
 		  //listView.setAdapter(new VersiAdapter(this));
-		 
+		  
 			return myFragmentView;
 	}
 	
@@ -68,15 +77,18 @@ public class PayedShopOrders extends Fragment {
             obList3 = new ArrayList<String>();
             obList4 = new ArrayList<String>();
             obList5 = new ArrayList<String>();
+            obList6 = new ArrayList<String>();
+            
             try {
-                ParseQuery<ParseObject> innerQuery = ParseQuery.getQuery("Shop");
-            	innerQuery.whereEqualTo("userOpen", ParseUser.getCurrentUser());
+                ParseQuery<ParseObject> innerQuery = ParseQuery.getQuery("shop");
+            	innerQuery.whereEqualTo("UserOpen", ParseUser.getCurrentUser());
             	//List<ParseObject> ss = innerQuery.find();
             	ob = innerQuery.find();
     			for(ParseObject m:ob){
     				ParseQuery<ParseObject> y = ParseQuery.getQuery("Order");
-    				ParseObject obj = ParseObject.createWithoutData("Shop",m.getObjectId());
+    				ParseObject obj = ParseObject.createWithoutData("shop",m.getObjectId());
     				y.whereEqualTo("order_status", "Payed");
+    				//y.whereEqualTo("order_status", "Confirmed");
     				y.whereEqualTo("ShopId", obj);
     				List<ParseObject> gg = y.find();
     				for(ParseObject c:gg){
@@ -85,7 +97,8 @@ public class PayedShopOrders extends Fragment {
     					obList2.add(c.getParseObject("user_id").getObjectId());
     					obList3.add(c.getParseObject("productId").getObjectId());
     					obList4.add(c.getObjectId());
-    					obList5.add(c.getString("PaymentMethod"));
+    					obList5.add(c.getString("payment_type"));
+    					obList6.add(c.getString("order_status"));
     				}
     			
     			}
@@ -130,33 +143,32 @@ public class PayedShopOrders extends Fragment {
             
             // Initialize the views in the layout
             final ImageView iv = (ImageView) listItem.findViewById(R.id.imageView1);
-            final TextView profileusername = (TextView) listItem.findViewById(R.id.textView1);
+            profileusername = (TextView) listItem.findViewById(R.id.textView1);
             final TextView Productname = (TextView) listItem.findViewById(R.id.textView2);
             final TextView ProductQty = (TextView) listItem.findViewById(R.id.textView3);
             final TextView TotalCost = (TextView) listItem.findViewById(R.id.textView4);
             final TextView shopNAme = (TextView) listItem.findViewById(R.id.textView6);
-            TextView ostatus = (TextView) listItem.findViewById(R.id.textView5);
             final TextView paymentMethod = (TextView) listItem.findViewById(R.id.textView7);
-            
-            paymentMethod.setText("Payment Type: "+obList5.get(pos)+"");
-            
+
+            Spinner orderstatues = (Spinner) listItem.findViewById(R.id.spinner1);
             
             switchT1 = (Switch)listItem.findViewById(R.id.switch1);
-            switchT1.setVisibility(View.GONE);
-            ostatus.setVisibility(View.GONE);
             
             
-          //----------------------------- Start Shop &username name Query ------------------------------------------------ 
+          //----------------------------- Start Shop &username name Query ------------------------------------------------
+            
+            paymentMethod.setText("Payment Type: "+obList5.get(pos)+"");
            
+            
             try{
-                ParseQuery<ParseObject> cc = ParseQuery.getQuery("Shop");
+                ParseQuery<ParseObject> cc = ParseQuery.getQuery("shop");
             	cc.whereEqualTo("objectId", obList.get(pos));
             	
             	List<ParseObject> oo = cc.find();
     			//for(ParseObject m:oo){
             	// Or like this...
                 for(int i = 0; i < oo.size(); i++)
-                   shopNAme.setText("Shop name: "+oo.get(i).get("Shop_name").toString()+"");
+                   shopNAme.setText("Shop name: "+oo.get(i).get("shop_name").toString()+"");
     					
     			ParseQuery<ParseUser> vv = ParseUser.getQuery();
             	vv.whereEqualTo("objectId", obList2.get(pos));
@@ -194,17 +206,130 @@ public class PayedShopOrders extends Fragment {
     					//bb2.add(c2.getParseObject("ShopId").getObjectId());
     					ProductQty.setText("Product Qty: "+c2.getInt("product_quantity")+"");
     		    		TotalCost.setText("Cost: "+c2.getInt("product_quantity")*c2.getDouble("unit_cost"));
-    		    	
+    		    		
+    		    		/*
+        				ParseFile fileObject = (ParseFile) c2.get("product_pic");
+        				if(fileObject!=null){
+        				fileObject.getDataInBackground(new GetDataCallback() {
+                			public void done(byte[] data,ParseException e) {
+                				if (e == null) {
+                					Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,data.length);
+                					iv.setImageBitmap(bmp);
+                						} else {
+                							
+                						}
+                					}
+                				});
+        				}
+        				*/
+
     				}
             }catch (ParseException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-    			
+    		
+            
+            if((obList6.get(pos)).equals("Payed")){
+            ArrayAdapter<CharSequence> sa = ArrayAdapter.createFromResource(getActivity(),
+                    R.array.order_delivered_statues, android.R.layout.simple_spinner_item);
+            sa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            orderstatues.setAdapter(sa);
+            }
+            
+            orderstatues.setOnItemSelectedListener(new OnItemSelectedListener(){
+				@Override
+				public void onItemSelected(final AdapterView<?> parent, View view,
+						final int position, long id) {
+					// TODO Auto-generated method stub
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Order");
+        	    	query.getInBackground(obList4.get(pos), new GetCallback<ParseObject>() {
+        	    		  public void done(ParseObject ord, ParseException e) {
+        	    		    if (e == null) {
+        	    		    
+        	    		    		if(position==1){
+            	    		    		ord.put("order_status", "Delivered");
+       					    	    	ord.saveInBackground();
+       					    	    	onResume();
+        	    		    		
+        	    		    	}
+        	    		    	
+        	    		    	//onResume();
+        	    		    }
+        	    		  }
+        	    		  });
+        	    	
+					
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+            });
+           // orderstatues.setOnItemSelectedListener(CurrentShopsComingOrders);
+            /*
+            switchT1.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            	   @Override
+            	   public void onCheckedChanged(CompoundButton buttonView,
+            	     boolean isChecked) {
+            	    
+            	    if(isChecked){
+            	    	//switchT1.setVisibility(View.INVISIBLE);
+            	    	ParseQuery<ParseObject> query = ParseQuery.getQuery("Order");
+            	    	
+            	    	query.getInBackground(obList4.get(pos), new GetCallback<ParseObject>() {
+            	    		  public void done(ParseObject ord, ParseException e) {
+            	    		    if (e == null) {
+            	    		    	onResume();
+            	    		    	//switchT1.setVisibility();
+            	    		    		ord.put("order_status", "Confirmed");
+       					    	    	ord.saveInBackground();
+       					    	    	Toast.makeText(getActivity(),
+       					        				String.valueOf("Your Selected is On"),
+       					        					Toast.LENGTH_SHORT).show();
+       					    	    	//onResume();
+       					    	    	//listView.invalidateViews();
+       					    	    	
+       					    	    	//listView.removeViewInLayout(ProductQty);
+       					    	    	
+            	    		    }
+            	    		  }
+            	    	});
+            	    	
+            	    	
+            	    }else{
+            	    	Toast.makeText(getActivity(),
+                				String.valueOf("Your Selected is Off"),
+                					Toast.LENGTH_SHORT).show();
+            	    }
+
+            	   }
+            	
+            	   
+            	  }); 
+            */
+         profileusername.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String v = obList2.get(pos);
+					Intent in = new Intent(getActivity(),UserProfile_ME.class);
+					in.putExtra("userProfile", v);
+					//setResult(in,0);
+					getActivity().startActivity(in);
+					//Toast.makeText(getActivity(), obList2.get(pos)+"", Toast.LENGTH_LONG).show();
+				}
+			});
+            
             return listItem; 
             
-            
         }
+        
+        
 
     }
 	
