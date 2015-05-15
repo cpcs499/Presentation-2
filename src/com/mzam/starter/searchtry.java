@@ -1,8 +1,10 @@
 package com.mzam.starter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -10,6 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.zip.DataFormatException;
 import java.util.Objects;
 import java.util.TreeMap;
 
@@ -32,6 +35,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +63,7 @@ public class searchtry extends Activity {
 	ListView listView;
     String[] dataArray = new String[] {"India","Androidhub4you", "Pakistan", "Srilanka", "Nepal", "Japan"};
     AutoCompleteAdapter myAdapter;
-    ArrayList<String> picList,picList2,picList3,picList4;
+  
     List<String> productsIds;
     List<String> userIds;
     HashMap<String,Double> map = new  HashMap<String,Double>();
@@ -74,7 +78,11 @@ public class searchtry extends Activity {
     String BasicOrderId, BasicProductId;
     RadioGroup radio;
     GridView gridview;
-    
+    Context context = this;
+    List<ParseObject> recommenda;
+    ParseUser user ; 
+    String searchtype;
+    ArrayList<String> picListshop,picListprod,picListuser;
 ////////////////////////////////////////////////////////////
     
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,169 +91,427 @@ public class searchtry extends Activity {
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		//==========================
 		
-		picList = new ArrayList<String>();
-		picList4 = new ArrayList<String>();
-		picList2 = new ArrayList<String>();
+		// develeration .................
+		picListshop = new ArrayList<String>();
+		picListprod = new ArrayList<String>();
+		picListuser = new ArrayList<String>();
 		ft = Typeface.createFromAsset(getAssets(),"Fonts/Rosemary.ttf");
 		reco = (TextView) findViewById(R.id.recommend);
 		reco.setTypeface(ft);
-		
 		gridview = (GridView) findViewById(R.id.gridProd);
-		radio= (RadioGroup) findViewById(R.id.radGrp);
+		radio= (RadioGroup) findViewById(R.id.myRadioGroup);
+		productParseIds= new ArrayList<ParseObject>();
+		userUser= new ArrayList<ParseObject>();
+	   //recommenda = new ArrayList<ParseObject>(0);
+			
+		user= ParseUser.getCurrentUser();
 
-		
-	/*	reco.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View arg0) {*/
-				productParseIds= new ArrayList<ParseObject>();
-				userUser= new ArrayList<ParseObject>();
+      gridview.setAdapter(new VersiAdapter(this));
+
+      
+  	Date recoAt =  user.getDate("RecommendAt");
+	if (recoAt==null){
+	       onRecommendation();
+	}
+	else if (recoAt!=null ){
+
 	
-				
-//	[1]  Query the order table for last ordered product. 				
-ParseQuery<ParseObject> query1 = ParseQuery.getQuery("Order");
-query1.orderByDescending("createdAt");
-try {
-ParseObject precoProduct = query1.getFirst();
-BasicOrderId = precoProduct.getObjectId();
-BasicProductId=precoProduct.getParseObject("productId").getObjectId(); // *** Book Id *** // 
-ParseObject BasicObj = ParseObject.createWithoutData("Product",BasicProductId);
-//productParseIds.add(BasicObj);
- //Toast.makeText(getApplicationContext(),  BasicProductId, Toast.LENGTH_LONG).show(); 
-////////////////////////////////////////////////////////////////////////////////////////////			
-
-       // [2] Query about users who order this product . 
-	      ParseQuery<ParseObject> query2 = ParseQuery.getQuery("Order");	 
-	      query1.orderByDescending("createdAt");
-	      query1.whereEqualTo("productId", BasicObj);
-	      query1.setLimit(6);
-	      userParseIds=query1.find();
-/*	Toast.makeText(getApplicationContext(),  userParseIds.get(0).getObjectId()+" "+userParseIds.get(1).getObjectId()+userParseIds.get(2).getObjectId(), Toast.LENGTH_LONG).show(); 
-*/	      
-		  for(ParseObject c: userParseIds){
-          // * Done: Toast.makeText(getApplicationContext(),  c.getParseObject("user_id").getObjectId(), Toast.LENGTH_LONG).show(); 			
-	      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			  
-		           // [3] Query from order table for each user what is the last products ordered 
-			            ParseQuery<ParseObject> query3 = ParseQuery.getQuery("Order");
-			            ParseObject user = ParseObject.createWithoutData("_User",c.getParseObject("user_id").getObjectId());
-			            userUser.add(user);
-                        //	Toast.makeText(getApplicationContext(),  user.getObjectId(), Toast.LENGTH_LONG).show(); 			
-			            query3.whereEqualTo("user_id", user);
-		
-                        // Toast.makeText(getApplicationContext(),  String.valueOf(query3.count()), Toast.LENGTH_LONG).show(); 
-			            query3.whereNotEqualTo("productId", BasicObj);
-			            ParseObject otherOrder = query3.getFirst();
-			            ParseObject otherProduct = ParseObject.createWithoutData("Product",otherOrder.getParseObject("productId").getObjectId());
-			            productParseIds.add(otherProduct);
-                        //Toast.makeText(getApplicationContext(), user.getObjectId () +" prod: "+otherProduct.getParseObject("productId").getObjectId(), Toast.LENGTH_LONG).show(); 						
-		                ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-			            
-		  }//end for each user objects
-		  
-/*		  Toast.makeText(getApplicationContext(),  userUser.get(0).getObjectId()+" "+userUser.get(1).getObjectId()+" "+userUser.get(2).getObjectId(), Toast.LENGTH_LONG).show(); 
-*/
-/*		  Toast.makeText(getApplicationContext(),  "0-"+productParseIds.get(0).getObjectId()+" 1-"+ productParseIds.get(1).getObjectId()+" 2-"+ productParseIds.get(2).getObjectId()+" 3-"+productParseIds.get(3).getObjectId(), Toast.LENGTH_LONG).show(); 
-*/
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-ParseQuery<ParseObject> query4= ParseQuery.getQuery("Order");
-
-// [4] loop to fill the 2D array: that is compare between users and products. 
-      for(int i=0;i<simArray.length;i++)
-        {
-        	for(int j=0;j<6;j++)
-        	{
-        	 query4.whereEqualTo("user_id",userUser.get(i));//ParseObject.createWithoutData("_User","5ZblnAArki"));//
-        	 query4.whereEqualTo("productId", productParseIds.get(j));//ParseObject.createWithoutData("Product","NBv3UX2oAa"));//
-        	 
-        	 
-        	 try {
-				ParseObject o = query4.getFirst();
-				if(o.getObjectId()!="")
-				{
-					simArray[i][j]=1;
-				}
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-        	 
-        	 
-/*  	 Toast.makeText(getApplicationContext(),  "i= "+i+" "+userUser.get(i).getObjectId()+" j="+j+" "+productParseIds.get(j).getObjectId(), Toast.LENGTH_LONG).show(); 
-        	 Toast.makeText(getApplicationContext(),  "i= "+i+" j= "+j+" "+simArray[i][j], Toast.LENGTH_LONG).show(); */
-        	}
-        }// for 
-
-      
+    Date cur = Calendar.getInstance().getTime();
+    long t = cur.getTime() - recoAt.getTime();
+    /////////////////////////////////////////////////
   
-      int Sum=0;
-      double simi=0.0;
-      int j=0;
-      do{
-      for (int i=0;i<simArray.length;i++)
-      {
-    	  Sum=(Sum+simArray[i][j]);
-      }
-      simi= (Sum/((Math.sqrt(simArray.length))*(Math.sqrt(Sum))));
-      
-      map.put(productParseIds.get(j).getObjectId(), simi);
-	  //sim[0]=simi;
-      Sum=0;
-      simi=0;
-      
-      j++;
-      }while(j<6);
-      
-   /*   map.put(productParseIds.get(0).getObjectId(), .4);
-      map.put(productParseIds.get(1).getObjectId(), .5);*/
-     /* sim[0]=simi;
-      sim[1]=.5;
-      sim[2]=.4;*/
-      System.out.println(map);
-    sortedMap = sortByValue(map);
-		System.out.println(sortedMap);
+    int days = (int) (t / (1000*60*60*24));  
+    int hours = (int) ((t - (1000*60*60*24*days)) / (1000*60*60)); 
+    int min = (int) (t - (1000*60*60*24*days) - (1000*60*60*hours)) / (1000*60);
+   
+    /////////////////////////////////////////////////////
+    if (days==0 && hours==12){
+
+    	 onRecommendation();
+    }
+	
+	else 
+	{
+
+	}
+	}
+	
+       onChooseAddress();	
+	 
+
+}// END OF ON-CREATE () .....
+
+	
+
+	
+	
+
+
+
+	private void onChooseAddress() {
+
 		
-      
-      
-gridview.setAdapter(new VersiAdapter(this));
+	
+			radio.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+		 @Override
+			 public void onCheckedChanged(RadioGroup group, int checkedId) {
+
+			 
+			 if(checkedId == R.id.shop) {
+				 searchtype ="shop";
+				 onSearchShop();
+			} else  if(checkedId == R.id.user) {
+				searchtype ="user";
+				 onSearchUser();
+			} else  if(checkedId == R.id.product) {
+				searchtype="product";
+				 onSearchProduct();
+			} 
+
+		 }
+
+	
+
+		});		
+		
+	}
 
 
-				
-				
-				
-	/*			
-				
-			}});*/
+	
+private void onSearchProduct() {
+
+
+try {
+ParseQuery<ParseObject> yy =ParseQuery.getQuery("Product");
+List<ParseObject> g = yy.find();
+for(ParseObject cc:g){
+picListprod.add(cc.getString("ProductName"));
+}
+
+
+} catch (ParseException e1) {
+//TODO Auto-generated catch block
+e1.printStackTrace();
+}
+
+
+
+
+AutoCompleteTextView acTextView = (AutoCompleteTextView)findViewById(R.id.AndroidBooks);
+acTextView.setTypeface(ft);
+myAdapter = new AutoCompleteAdapter(this,R.layout.searchresult,picListprod);
+//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
+
+acTextView.setThreshold(2);
+acTextView.setAdapter(myAdapter);
+
+
+acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+@Override
+public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
+long arg3) {
+//TODO Auto-generated method stub
+try{
+ParseQuery<ParseObject> yy =ParseQuery.getQuery("Product");
+yy.whereEqualTo("ProductName", picListprod.get(arg2));
+ParseObject gg = yy.getFirst();
+Intent intent = new Intent(searchtry.this, ProductPage.class);
+intent.putExtra("productid", gg.getObjectId());
+startActivity(intent);
+
+
+}catch(ParseException ee){
+ee.printStackTrace();
+   }
+}});
+}
+	
+private void onSearchUser() {
 			
 ///////////////////////////////////////////////////////////////////
 try {
 ParseQuery<ParseUser> y = ParseQuery.getUserQuery();
-//innerQuery.whereEqualTo("username", newText);
 
 List<ParseUser> gg = y.find();
 for(ParseObject c:gg){
-//Toast.makeText(getApplicationContext(), c.getObjectId()+"", Toast.LENGTH_LONG).show(); 	
-picList.add(c.getString("username"));
+picListuser.add(c.getString("username"));
 }
 } catch (ParseException e1) {
 //TODO Auto-generated catch block
 e1.printStackTrace();
 }
 
- 
+
+//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
+AutoCompleteTextView acTextView = (AutoCompleteTextView)findViewById(R.id.AndroidBooks);
+acTextView.setTypeface(ft);
+myAdapter = new AutoCompleteAdapter(this,R.layout.searchresult,picListuser);
+//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
+
+acTextView.setThreshold(2);
+acTextView.setAdapter(myAdapter);
+
+
+acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+@Override
+public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
+long arg3) {
+//TODO Auto-generated method stub
+try{
+ParseQuery<ParseUser> y = ParseQuery.getUserQuery();
+y.whereEqualTo("username", picListuser.get(arg2));
+List<ParseUser> gg = y.find();
+for(ParseObject c:gg){
+//Toast.makeText(getApplicationContext(), "" +c.getObjectId() , Toast.LENGTH_SHORT).show();
+Intent intent = new Intent(searchtry.this, ProfileOtherUser.class);
+intent.putExtra("USER_ID", c.getObjectId());
+startActivity(intent);
+
+}
+}catch(ParseException ee){
+ee.printStackTrace();
+}
+}
+});
+
+
+		}
+
+
+
+
+
+	private void onRecommendation() {
+
+		
+	
+        	  ParseQuery<ParseObject> cc = ParseQuery.getQuery("RecommendedProduct");
+              cc.whereEqualTo("user_id", ParseUser.getCurrentUser());
+              
+              try {
+            	  List<ParseObject> todelete = cc.find();
+            	  for (ParseObject  li:todelete)
+            	  {
+            		 li.deleteInBackground(); 
+            	  }
+  			} catch (ParseException e1) {
+  				// TODO Auto-generated catch block
+  				e1.printStackTrace();
+  			}
+              
+        	
+		ParseObject  lastorder=null,  lastproduct=null,orderorder;
+		List<ParseObject> orderproducts,orderusers,finalproducts;
+		orderusers=new ArrayList<ParseObject>();
+		finalproducts=new ArrayList<ParseObject>();
+		//.............................................
+		// [1] Find the last ordered product ........
+		ParseQuery<ParseObject> orders= ParseQuery.getQuery("Ordered_Product");
+		orders.orderByDescending("createdAt");
+		orders.include("product_id");
+		orders.include("order_id");
+			try {
+				lastorder= orders.getFirst();
+			    lastproduct= lastorder.getParseObject("product_id");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    // .............................................
+		// [2] Find who order this ...... 
+	    ParseQuery<ParseObject> products= ParseQuery.getQuery("Ordered_Product");
+	    products.whereEqualTo("product_id", lastproduct);
+	    products.include("order_id.user_id");
+	    products.setLimit(6);
+	    
+	    
+	    try {
+	    orderproducts = products.find();	    
+	    for (ParseObject orderproduct :orderproducts){
+	    	orderorder = orderproduct.getParseObject("order_id");
+	    	orderusers.add(orderorder.getParseObject("user_id"));
+	    }//end for 
+		} catch (ParseException e) {
+			e.printStackTrace();
+		} 
+	    
+	    // .............................................
+		// [3] find each user what order else ...... 
+	    for (ParseObject user : orderusers)
+	    {   	    // [3] Find any product they also order it other than that one
+		    Toast.makeText(context, "this "+user.getObjectId()+lastorder.getObjectId(), Toast.LENGTH_SHORT).show(); 
+		    ParseQuery<ParseObject> quorders1= ParseQuery.getQuery("Order");
+		    quorders1.whereEqualTo("user_id", user);
+		    ParseQuery<ParseObject> quorders2= ParseQuery.getQuery("Ordered_Product");
+		    quorders2.whereMatchesQuery("order_id", quorders1);//.whereMatchesKeyInQuery("order_id", "objectId",quorders1);
+		    quorders2.whereNotEqualTo("product_id", lastproduct);
+		    quorders2.include("product_id");
+		    try {
+				finalproducts.add(quorders2.getFirst().getParseObject("product_id"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    }// end for 
+	    
+	    List<Integer> sum = new ArrayList<Integer>();
+	    //Find the similarity matrix 
+	    for (ParseObject pro : finalproducts)
+	    {
+	    	for (ParseObject user : orderusers)
+		    {   
+	    		ParseQuery<ParseObject> quorders1= ParseQuery.getQuery("Order");
+	   		    quorders1.whereEqualTo("user_id", user);
+	   		    ParseQuery<ParseObject> quorders2= ParseQuery.getQuery("Ordered_Product");
+			    quorders2.whereMatchesQuery("order_id", quorders1);
+			    quorders2.whereEqualTo("product_id", pro);
+			    
+			    try {
+					if (quorders2.count()>0)
+					{
+						sum.add(1);
+						
+					}// end if 
+					else 
+					{
+						sum.add(0);
+				
+					}
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}// end catch 
+	   		    
+			  
+		    }// end inner for
+	    	double sumB=0;
+	    	for (int i:sum)
+	    	{
+	    		sumB+=i;
+	    	}
+	    	 double similiraity = sumB/((Math.sqrt(sum.size()))*(Math.sqrt(sumB)));
+	    	ParseObject recommend = new ParseObject("RecommendedProduct");
+	    	recommend.put("user_id", ParseUser.getCurrentUser());
+	    	recommend.put("product_id", pro);
+	    	recommend.put("similarity",similiraity); 	
+	    	recommend.saveInBackground();
+	    	 Date cur_ = Calendar.getInstance().getTime();
+	    	user.put("RecommendAt",cur_ );
+	    	user.saveInBackground();
+	    	
+	  //  	recommenda.add(pro);
+	    	similiraity=0;
+	    	sumB=0;
+	    	sum.clear();
+	    }// end out for 
+	    
+	    // ...................................................
+               
+      
+		
+	    
+	    
+}
+
+	
+	// Create an Adapter Class extending the BaseAdapter
+    class VersiAdapter extends BaseAdapter {
+
+        private LayoutInflater layoutInflater;
+        
+        public VersiAdapter(searchtry activity) {
+            // TODO Auto-generated constructor stub
+            layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+            ParseQuery<ParseObject> cc = ParseQuery.getQuery("RecommendedProduct");
+            cc.include("product_id");
+            cc.whereEqualTo("user_id", ParseUser.getCurrentUser());
+            try {
+				recommenda = cc.find();
+			} catch (ParseException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+            
+        }
+        
+        @Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return recommenda.size();
+		}
+        
+        @
+        Override
+        public Object getItem(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @
+        Override
+        public long getItemId(int position) {
+            // TODO Auto-generated method stub
+            return position;
+        }
+
+        @
+        Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+
+            // Inflate the item layout and set the views
+            View listItem = convertView;
+            final int pos = position;
+            if (listItem == null) {
+                listItem = layoutInflater.inflate(R.layout.gridview_item, null);   
+            }
+            
+            // Initialize the views in the layout
+            final ParseImageView iv = (ParseImageView) listItem.findViewById(R.id.phone);
+            LayoutParams params = new LayoutParams(360, 360);
+            iv.setLayoutParams(params);
+/* 	Toast.makeText(context, " "+recommenda.get(pos).getCreatedAt(),Toast.LENGTH_LONG).show();
+*/					ParseFile fileObject = (ParseFile) recommenda.get(pos).getParseObject("product_id").get("product_pic");
+					if(fileObject!=null){
+						iv.setParseFile(fileObject);
+						iv.loadInBackground();
+					}
+					else
+					{
+							Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+									R.drawable.inspiration_6);
+							iv.setImageBitmap(bitmap);
+		
+					}
+
+            gridview.setOnItemClickListener(new OnItemClickListener() {
+    			public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
+    			   Toast.makeText(getApplicationContext(),position+"", Toast.LENGTH_SHORT).show();
+    			   Intent in = new Intent(searchtry.this,ProductPage.class);
+    			   in.putExtra("productid", recommenda.get(position).getParseObject("product_id").getObjectId());
+    			   startActivity(in);
+    			   
+    			}
+    		});
+
+            return listItem; 
+            
+            
+            
+        }
+        
+        
+
+    }
+    
+    
+private void onSearchShop() {
+
+
 try {
 ParseQuery<ParseObject> yy =ParseQuery.getQuery("shop");
 List<ParseObject> g = yy.find();
 for(ParseObject cc:g){
-picList.add(cc.getString("shop_name"));
+picListshop.add(cc.getString("shop_name"));
 }
 
 
@@ -254,49 +520,40 @@ picList.add(cc.getString("shop_name"));
 e1.printStackTrace();
 }
 
-	
-	
-	    
-		//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
-        AutoCompleteTextView acTextView = (AutoCompleteTextView)findViewById(R.id.AndroidBooks);
-        acTextView.setTypeface(ft);
-        myAdapter = new AutoCompleteAdapter(this,R.layout.searchresult,picList);
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
-        
-        acTextView.setThreshold(2);
-        acTextView.setAdapter(myAdapter);
 
-        
-        acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
-					long arg3) {
-				// TODO Auto-generated method stub
-				try{
-				ParseQuery<ParseUser> y = ParseQuery.getUserQuery();
-	        	y.whereEqualTo("username", picList.get(arg2));
-	        	List<ParseUser> gg = y.find();
-				for(ParseObject c:gg){
-	        	   // Toast.makeText(getApplicationContext(), "" +c.getObjectId() , Toast.LENGTH_SHORT).show();
-					Intent intent = new Intent(searchtry.this, ProfileOtherUser.class);
-					intent.putExtra("USER_ID", c.getObjectId());
-					startActivity(intent);
-				
-			}
-				}catch(ParseException ee){
-					ee.printStackTrace();
-				}
-			}
-        });
-        
-        
-			    
 
+
+AutoCompleteTextView acTextView = (AutoCompleteTextView)findViewById(R.id.AndroidBooks);
+acTextView.setTypeface(ft);
+myAdapter = new AutoCompleteAdapter(this,R.layout.searchresult,picListshop);
+//ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,android.R.layout.simple_dropdown_item_1line,androidBooks);
+
+acTextView.setThreshold(2);
+acTextView.setAdapter(myAdapter);
+
+
+acTextView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+@Override
+public void onItemClick(AdapterView<?> arg0, View arg1, final int arg2,
+long arg3) {
+//TODO Auto-generated method stub
+try{
+ParseQuery<ParseObject> yy =ParseQuery.getQuery("shop");
+yy.whereEqualTo("shop_name", picListshop.get(arg2));
+ParseObject gg = yy.getFirst();
+Intent intent = new Intent(searchtry.this, ShopSingleItemView.class);
+intent.putExtra("SHOP_ID", gg.getObjectId());
+startActivity(intent);
+
+
+}catch(ParseException ee){
+ee.printStackTrace();
+   }
+}});
 }
-
 	
 
-	
+
 	public class AutoCompleteAdapter extends ArrayAdapter<String> implements Filterable
 	{
 		private ArrayList<String> items;
@@ -332,15 +589,9 @@ e1.printStackTrace();
                 //listItem = layoutInflater.inflate(R.layout.searchresult, null);   
             }
             
-            //listItem.findViewById(R.id.imageView1);
             TextView profileusername = (TextView) listItem.findViewById(R.id.textView1);
-            //final TextView firstlast = (TextView)listItem.findViewById(R.id.textView2);
             
            profileusername.setText(items.get(pos)+"");
-            //firstlast.setText(id.get(pos)+"");
-             
-            
-            
             
             return listItem;
         }
@@ -394,149 +645,5 @@ e1.printStackTrace();
 
     }
 
-	
-	public static Map sortByValue(Map unsortMap) {	 
-		List list = new LinkedList(unsortMap.entrySet());
-	 
-		Collections.sort(list, new Comparator() {
-			public int compare(Object o1, Object o2) {
-				return (((Comparable) ((Map.Entry) (o2)).getValue())
-							.compareTo(((Map.Entry) (o1)).getValue()));
-			}
-		});
-	 
-		Map sortedMap = new LinkedHashMap();
-		for (Iterator it = list.iterator(); it.hasNext();) {
-			Map.Entry entry = (Map.Entry) it.next();
-			sortedMap.put(entry.getKey(), entry.getValue());
-		}
-		return sortedMap;
-	}
-	
-	@SuppressLint("NewApi")
-	public static <T, E> T getKeyByValue(Map<T, E> map, E value) {
-	    for (Entry<T, E> entry : map.entrySet()) {
-	        if (Objects.equals(value, entry.getValue())) {
-	            return entry.getKey();
-	        }
-	    }
-	    return null;
-	}
-	
-	
-	// Create an Adapter Class extending the BaseAdapter
-    class VersiAdapter extends BaseAdapter {
-
-        private LayoutInflater layoutInflater;
-        
-        public VersiAdapter(searchtry activity) {
-            // TODO Auto-generated constructor stub
-            layoutInflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        	
-//            obList = new ArrayList<String>();
-//            try {
-//            
-//            	ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Product");
-//            	ParseObject obj = ParseObject.createWithoutData("shop",shopId);
-//            	query.whereEqualTo("shopId", obj);
-//            	List<ParseObject>ob = query.find();
-//            	for (ParseObject num : ob) {
-//            		obList.add(num.getObjectId());
-//    			}
-//    			} catch (ParseException e1) {
-//    				// TODO Auto-generated catch block
-//    				e1.printStackTrace();
-//    			}
- 	
-        }
-        
-        @Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return productParseIds.size();
-		}
-        
-        @
-        Override
-        public Object getItem(int position) {
-            // TODO Auto-generated method stub
-            return position;
-        }
-
-        @
-        Override
-        public long getItemId(int position) {
-            // TODO Auto-generated method stub
-            return position;
-        }
-
-        @
-        Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-
-            // Inflate the item layout and set the views
-            View listItem = convertView;
-            final int pos = position;
-            if (listItem == null) {
-                listItem = layoutInflater.inflate(R.layout.gridview_item, null);   
-            }
-            
-            // Initialize the views in the layout
-            final ParseImageView iv = (ParseImageView) listItem.findViewById(R.id.phone);
-            LayoutParams params = new LayoutParams(360, 360);
-            iv.setLayoutParams(params);
-            ParseQuery<ParseObject> cc = ParseQuery.getQuery("Product");
-            //String Id = getKeyByValue(sortedMap,sim[pos]);
-      	    // Toast.makeText(getApplicationContext(),  String.valueOf(sim[pos]), Toast.LENGTH_LONG).show(); 
-
-            cc.getInBackground(productParseIds.get(pos).getObjectId(), new GetCallback<ParseObject>(){
-
-				@Override
-				public void done(final ParseObject object, ParseException e) {
-					// TODO Auto-generated method stub
-					
-					ParseFile fileObject = (ParseFile) object.get("product_pic");
-					if(fileObject!=null){
-						iv.setParseFile(fileObject);
-						iv.loadInBackground();
-					}
-					else
-					{
-							Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-									R.drawable.inspiration_6);
-							iv.setImageBitmap(bitmap); // for pevieeeewwww
-		
-					}
-				}
-				
-            	
-            });
-            
-            gridview.setOnItemClickListener(new OnItemClickListener() {
-    			public void onItemClick(AdapterView<?> parent, View v,int position, long id) {
-    			   Toast.makeText(getApplicationContext(),position+"", Toast.LENGTH_SHORT).show();
-    			   Intent in = new Intent(searchtry.this,ProductPage.class);
-    			   in.putExtra("productid", productParseIds.get(position).getObjectId());
-    			//Here Error !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    			  // in.putExtra("shopId", productParseIds.get(position).getParseObject("shopId").getObjectId());
-    			//Toast.makeText(getApplicationContext(),obList.get(position), Toast.LENGTH_SHORT).show();
-    				//object.getObjectId().toString();
-    			   startActivity(in);
-    			   
-    			}
-    		});
-
-            
-            
-            
-            return listItem; 
-            
-            
-            
-        }
-        
-        
-
-    }
 }
 
