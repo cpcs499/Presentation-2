@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/AbsoluteLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#fbfcf7"
+    android:clickable="true" >
+    
+    
+    
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="22dp"
+        android:layout_y="16dp"
+        android:text="Enter discount required "
+        android:textColor="#000000" />
+    
+    
+    
+    <EditText
+        android:id="@+id/entersale"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="14dp"
+        android:layout_y="40dp"
+        android:ems="10"
+        android:hint="quantitiy"
+        android:text="0"
+        android:inputType="number"
+        android:background="@drawable/signupfield" 
+        android:gravity="center"/>
+    
+</AbsoluteLayout>
