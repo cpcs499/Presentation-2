@@ -467,6 +467,9 @@ public class AddProduct extends Activity {
 	     product.put("product_description",desc.getText().toString());
 	     product.put("product_price",Double.parseDouble(price.getText().toString()));
 	     product.put("shopId",ParseObject.createWithoutData("shop",shopId));
+	     product.put("hold_quantity",0);
+	     product.put("sold_quantity",0);
+	     product.put("product_discount",0);
          //ParseObject objectId= ParseObject.createWithoutData("Product",product.getObjectId());
 	   
 	    	Bitmap bitmap = BitmapFactory.decodeFile(picturePath);//////////
