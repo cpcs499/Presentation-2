@@ -62,7 +62,7 @@ public class ShopSingleItemView extends Activity {
 	TextView productnumber;
 	Button query;
 	Bundle bundl=new Bundle();
-	
+	int discount;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -96,7 +96,7 @@ public class ShopSingleItemView extends Activity {
 			
 				// Clickable Image to allow you to select images for product 
 				
-				shopOrder.setOnClickListener(new OnClickListener(){
+			/*	shopOrder.setOnClickListener(new OnClickListener(){
 			        public void onClick(View view) {
 		    		   final CharSequence[] items = {"Current Shop Coming Orders", "Payed Shop Orders","Delivered Shop Coming Orders","Cancelled Shop Coming Orders"};
 
@@ -135,7 +135,7 @@ public class ShopSingleItemView extends Activity {
 		    	        AlertDialog alert = builder.create();
 		    	        alert.show();
 			          }
-			        });
+			        });*/
 			        
         
 	}	
@@ -231,6 +231,8 @@ public class ShopSingleItemView extends Activity {
 	        	ParseObject obj = ParseObject.createWithoutData("shop",shopId);
 	        	query2.whereEqualTo("shopId", obj);
 	        	int count = query2.count();
+	        	
+	        	
 	    		productnumber = (TextView) findViewById(R.id.textView3);
 	    		productnumber.setText(""+count+" Products");
 	    		productnumber.setGravity(Gravity.CENTER);
@@ -313,8 +315,13 @@ public class ShopSingleItemView extends Activity {
             }
             
             // Initialize the views in the layout
-            final ParseImageView iv = (ParseImageView) listItem.findViewById(R.id.phone);
-            LayoutParams params = new LayoutParams(360, 360);
+           final ImageView soldout = (ImageView) listItem.findViewById(R.id.soldout);
+/*           final ImageView sale = (ImageView) listItem.findViewById(R.id.sale);
+		sale.setVisibility(View.GONE);*/
+	        final TextView disnumber = (TextView) listItem.findViewById(R.id.disnumber);
+	        disnumber.setVisibility(View.GONE);
+	        final ParseImageView iv = (ParseImageView) listItem.findViewById(R.id.phone);
+            LayoutParams params = new LayoutParams(300, 300);
             iv.setLayoutParams(params);
             ParseQuery<ParseObject> cc = ParseQuery.getQuery("Product");
             cc.getInBackground(obList.get(pos), new GetCallback<ParseObject>(){
@@ -322,6 +329,19 @@ public class ShopSingleItemView extends Activity {
 				@Override
 				public void done(final ParseObject object, ParseException e) {
 					// TODO Auto-generated method stub
+					
+					if (object.getInt("product_quantity")>0)
+						{
+						soldout.setVisibility(View.GONE);
+						}
+					discount=object.getInt("product_discount");
+					if(object.getInt("product_quantity")>0 &&object.getInt("product_discount")>0)
+					{
+					//	sale.setVisibility(View.VISIBLE);
+						disnumber.setText(" "+String.valueOf(object.getInt("product_discount"))+" % off");
+						disnumber.setVisibility(View.VISIBLE);
+
+					}
 					
 					ParseFile fileObject = (ParseFile) object.get("product_pic");
 					if(fileObject!=null){
@@ -345,8 +365,7 @@ public class ShopSingleItemView extends Activity {
     			   Toast.makeText(getApplicationContext(),position+"", Toast.LENGTH_SHORT).show();
     			   Intent in = new Intent(ShopSingleItemView.this,ProductPage.class);
     			   in.putExtra("productid", obList.get(position).toString());
-    			//Toast.makeText(getApplicationContext(),obList.get(position), Toast.LENGTH_SHORT).show();
-    				//object.getObjectId().toString();
+    			   in.putExtra("discount", discount);
     			   startActivity(in);
     			   
     			}
