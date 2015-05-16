@@ -45,6 +45,8 @@ public class ProductPage extends Activity {
 	String prodId;
     ParseObject product;
     String shopId;
+    ImageView sale;
+    ParseObject currentProduct=null;
 	//////////////////////////////
 	//Parse color objects....
 	ParseObject color1;
@@ -96,6 +98,7 @@ public class ProductPage extends Activity {
 	TextView editBtn,ProductOrder;
 	TextView deleteBtn;
 	Button rate ;
+	int discount;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -108,6 +111,7 @@ public class ProductPage extends Activity {
 			// Get the intent from ListViewAdapter
 			
 			prodId =i.getStringExtra("productid");
+			discount = i.getIntExtra("discount", 0);
             name = (TextView)findViewById(R.id.NameSet);
 			Description = (TextView)findViewById(R.id.DescSet);
 			TotalQnt = (TextView)findViewById(R.id.QuantSet);
@@ -117,7 +121,7 @@ public class ProductPage extends Activity {
 			final ParseImageView imgphone = (ParseImageView) findViewById(R.id.phone);
 			shopId= i.getStringExtra("shopId");
 			// Load image into the ImageView
-						
+			
 			TextView order_this_prodcut;
             order_this_prodcut = (TextView)findViewById(R.id.order_the_product);
             
@@ -136,8 +140,19 @@ public class ProductPage extends Activity {
                 }
             });
             
+            final ParseQuery<ParseObject> proQuery= ParseQuery.getQuery("Product");
+    		proQuery.whereEqualTo("objectId", prodId);
+    		
+    		try {
+    			currentProduct = proQuery.getFirst();
+    		} catch (ParseException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
 						
-						
+             onSale() ; 
+             onSoldQuantity();
 			// Colorssss 
 			imageColor1 =(ImageView)findViewById(R.id.color1);
 			LayoutParams params = (LayoutParams) imageColor1.getLayoutParams();
@@ -363,6 +378,118 @@ public class ProductPage extends Activity {
 				});
 		}
 	
+	private void onSoldQuantity() {
+	    final TextView soldquan = (TextView) findViewById(R.id.soldquantity);
+        soldquan.setText(String.valueOf(currentProduct.getInt("sold_quantity")));
+		
+	}
+
+	private void onSale() {
+		sale= (ImageView) findViewById(R.id.saale);
+	    final TextView priceafter = (TextView) findViewById(R.id.priceSale);
+	    final TextView priceaftersale= (TextView) findViewById(R.id.priceAfter);
+	    
+	  
+		
+		if(currentProduct.getInt("product_quantity") ==0)
+		{
+		 sale.setVisibility(View.GONE);
+		}
+		if(currentProduct.getInt("product_discount") ==0)
+		{
+			   priceafter.setVisibility(View.GONE);
+		        priceaftersale.setVisibility(View.GONE);
+		}
+		else 
+		if (currentProduct.getInt("product_discount")>0)
+		{
+			double price_2 = currentProduct.getDouble("product_price")-((currentProduct.getInt("product_discount")*currentProduct.getDouble("product_price"))/100);
+			priceaftersale.setText(String.valueOf(price_2));
+			   priceafter.setVisibility(View.VISIBLE);
+		       priceaftersale.setVisibility(View.VISIBLE);
+		}
+        ///////////////////////////////////////////////
+		
+        sale.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+ 
+
+				LayoutInflater li = LayoutInflater.from(context);
+				View textPPost = li.inflate(R.layout.textsale, null);
+				AlertDialog.Builder Builder = new AlertDialog.Builder(context);
+				Builder.setView(textPPost);
+				
+                final TextView nameMeal = (TextView)textPPost.findViewById(R.id.name);
+                final EditText saleedit  = (EditText)textPPost.findViewById(R.id.entersale);
+
+                nameMeal.setText( name.getText().toString());
+                saleedit.setText(String.valueOf((currentProduct.getInt("product_discount"))));
+				
+				Builder.setCancelable(false)
+						.setPositiveButton("Add",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										
+									if (Integer.parseInt(saleedit.getText().toString())==0)
+									{
+										//saleedit.setError("enter number more than zero");
+										currentProduct.put("product_discount", 0);
+										currentProduct.saveInBackground();
+										 priceafter.setVisibility(View.GONE);
+									     priceaftersale.setVisibility(View.GONE);
+									}
+									else 
+									{
+
+										
+											currentProduct.put("product_discount", Integer.parseInt(saleedit.getText().toString()));
+											currentProduct.saveInBackground();
+											double price_ =  currentProduct.getDouble("product_price")-((currentProduct.getInt("product_discount")*currentProduct.getDouble("product_price"))/100);
+
+											priceaftersale.setText(String.valueOf(price_));
+											 priceafter.setVisibility(View.VISIBLE);
+										     priceaftersale.setVisibility(View.VISIBLE);
+										
+									}//else 
+										
+									 }
+									
+						})
+				.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int id) {
+								dialog.cancel();
+								Toast.makeText(getApplicationContext(),
+										"Adding successfully canceled",
+										Toast.LENGTH_LONG).show();
+							}
+						});
+
+		// create
+		AlertDialog alertDialog = Builder.create();
+		alertDialog.show();
+		
+	}
+});// on click 
+        
+      /*  final ParseQuery<ParseObject> proQuery= ParseQuery.getQuery("Product");
+		proQuery.whereEqualTo("objectId", prodId);
+		ParseObject currentProduct;
+		try {
+			currentProduct = proQuery.getFirst();
+			double price_2 = ((currentProduct.getInt("product_discount")*currentProduct.getDouble("product_price"))/100);
+			priceaftersale.setText(String.valueOf(price_2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+	
+        		
+	}// onsale 
+
 	public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
         // Respond to the action bar's Up/Home button
