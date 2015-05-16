@@ -48,6 +48,7 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -63,7 +64,7 @@ public class searchtry extends Activity {
 	ListView listView;
     String[] dataArray = new String[] {"India","Androidhub4you", "Pakistan", "Srilanka", "Nepal", "Japan"};
     AutoCompleteAdapter myAdapter;
-  
+    int discount =0;
     List<String> productsIds;
     List<String> userIds;
     HashMap<String,Double> map = new  HashMap<String,Double>();
@@ -464,13 +465,29 @@ ee.printStackTrace();
             if (listItem == null) {
                 listItem = layoutInflater.inflate(R.layout.gridview_item, null);   
             }
-            
+            final TextView disnumber = (TextView) listItem.findViewById(R.id.disnumber);
+	        disnumber.setVisibility(View.GONE);
+            final ImageView soldout = (ImageView) listItem.findViewById(R.id.soldout);
             // Initialize the views in the layout
             final ParseImageView iv = (ParseImageView) listItem.findViewById(R.id.phone);
             LayoutParams params = new LayoutParams(360, 360);
             iv.setLayoutParams(params);
-/* 	Toast.makeText(context, " "+recommenda.get(pos).getCreatedAt(),Toast.LENGTH_LONG).show();
-*/					ParseFile fileObject = (ParseFile) recommenda.get(pos).getParseObject("product_id").get("product_pic");
+				
+            if (recommenda.get(pos).getParseObject("product_id").getInt("product_quantity")>0)
+			{
+			soldout.setVisibility(View.GONE);
+			}
+            
+            discount = recommenda.get(pos).getParseObject("product_id").getInt("product_discount");
+            if(recommenda.get(pos).getParseObject("product_id").getInt("product_quantity")>0 &&recommenda.get(pos).getParseObject("product_id").getInt("product_discount")>0)
+			{
+			//	sale.setVisibility(View.VISIBLE);
+				disnumber.setText(" "+String.valueOf(recommenda.get(pos).getParseObject("product_id").getInt("product_discount"))+" % off");
+				disnumber.setVisibility(View.VISIBLE);
+
+			}
+            
+            ParseFile fileObject = (ParseFile) recommenda.get(pos).getParseObject("product_id").get("product_pic");
 					if(fileObject!=null){
 						iv.setParseFile(fileObject);
 						iv.loadInBackground();
@@ -488,6 +505,7 @@ ee.printStackTrace();
     			   Toast.makeText(getApplicationContext(),position+"", Toast.LENGTH_SHORT).show();
     			   Intent in = new Intent(searchtry.this,ProductPage.class);
     			   in.putExtra("productid", recommenda.get(position).getParseObject("product_id").getObjectId());
+    			   in.putExtra("discount", discount);
     			   startActivity(in);
     			   
     			}
